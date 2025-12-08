@@ -1,0 +1,291 @@
+body {
+    font-family: "arial unicode ms", "Lucida Sans Unicode", sans-serif;
+    margin: 20px;
+}
+
+table {
+    max-width: 100%;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+h2 {
+    text-align: center;
+    margin: 0%;
+    padding: 1rem;
+}
+
+th,
+td {
+    padding: 0rem;
+    text-align: center;
+}
+
+.hivebonus {
+    color: #ffec88;
+}
+
+.postivestat {
+    color: #c5fecb;
+}
+
+.negativestat {
+    color: #fed2d3;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(3, minmax(2rem, auto));
+    gap: 1rem;
+}
+
+.grid>div {
+    border-radius: 1em;
+    border: 2px solid black;
+}
+
+#CurrentStats,
+#ActionPanel,
+.topright {
+    padding: 1rem;
+}
+
+.topleft {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 2;
+    background-color: #a8b8c3;
+}
+
+.topright {
+    grid-column: 4 / span 4;
+    grid-row: 1 / span 1;
+}
+
+.centralright {
+    grid-column: 4 / span 4;
+    grid-row: 2 / span 1;
+    background-color: #a8b8c3;
+}
+
+.bottom {
+    grid-column: 1 / span 7;
+    grid-row: 3 / span 1;
+    background-color: #a8b8c3;
+}
+
+.topleft div {
+    border-radius: 1rem;
+}
+
+#CurrentStats>div,
+#Logs {
+    padding: 1rem;
+    background-color: #d2e6f3;
+    border-radius: 1rem;
+}
+
+#ActionPanel>*:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+#CurrentStats>div:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+#CurrentStats>div>*:not(table):not(form):not(:empty),
+#Logs>p {
+    padding: 0.5rem;
+    background-color: #96a4ac;
+    border-radius: 0.5em;
+}
+
+#calculator {
+    width: 100%;
+    height: 90%;
+    padding: 0;
+}
+
+.BeequipOverview {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0.5rem;
+    max-width: 100%;
+}
+
+.BeequipOverview>h2 {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BeequipOverview>img {
+    grid-column: 1;
+    grid-row: 2 / span 2;
+    justify-self: center;
+    align-self: center;
+    max-width: 100%;
+    height: auto;
+}
+
+.BeequipOverview>p {
+    grid-column: 2 / span 2;
+    grid-row: 2 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.BeequipOverview>* {
+    border-radius: 1rem;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+    box-sizing: border-box;
+}
+
+#WaxSlot table,
+#WaxMenu table {
+    border-collapse: separate;
+    border-spacing: 0.5rem;
+}
+
+#WaxSlot td,
+#WaxMenu th:has(button) {
+    border: none;
+    border-radius: .5rem;
+    background-color: #96a4ac;
+}
+
+#WaxMenu button,
+.beestatbutton {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0px;
+}
+
+#WaxSlot th {
+    border: none;
+    border-radius: .5rem;
+    background-color: #d2e6f3;
+    text-align: left;
+}
+
+p {
+    display: block;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+    font-size: 1.2rem;
+}
+
+.waxicon {
+    position: relative;
+    display: inline-block;
+}
+
+.waxicon img {
+    max-width: 100%;
+}
+
+.overlay-img {
+    position: absolute;
+    bottom: -5%;
+    right: -5%;
+    width: 50%;
+    height: auto;
+    opacity: 0.9;
+    z-index: 2;
+}
+
+#SpreadSheet table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+#SpreadSheet thead th {
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#SpreadSheet td:not(.cellsplit),
+#SpreadSheet th,
+.subcell {
+    padding: 1rem 0.5rem;
+    height: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    display: table-cell;
+    position: relative;
+    border-top: 1px solid #96a4ac;
+    border-bottom: 1px solid #96a4ac;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+#SpreadSheet td {
+    background: #d2e6f3;
+}
+
+#SpreadSheet th {
+    background: #bdcfdb
+}
+
+.beestatbutton {
+    position: absolute;
+    inset: 0;
+    flex: auto;
+}
+
+.subcell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex-direction: column;
+}
+
+/*
+.subcell:not(:first-child) {
+    border-top: 1px solid #96a4ac;
+}
+*/
+.cellsplit {
+    border: 1px solid #96a4ac;
+    border-left: 0px;
+    border-right: 0px;
+    border-collapse: collapse;
+}
+
+.graphbutton {
+    background-color: inherit;
+    padding: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border: #04AA6D dashed 1px;
+}
+
+.graphbutton:hover {
+    background-color: #04AA6D;
+    color: white;
+    border: #04AA6D outset 1px;
+    cursor: pointer;
+}
+

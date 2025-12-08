@@ -1,0 +1,72 @@
+[
+  {
+    "StatName": "Critical Chance",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [5, 6, 7, 8, 9, 10],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [30, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 10,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Energy",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [-35, -34, -33, -32, -31, -30, -29, -28, -27, -26, -25],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [100, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 15,
+    "Bias": 2,
+    "Upgrade Value": [5, 10],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Ability Rate",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [5, 6, 7, 8, 9, 10],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [30, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 10,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Attack",
+    "StatCategory": null,
+    "StatType": null,
+    "Base Value": [1, 1],
+    "Base Stat Chance": [10, 10],
+    "Base Stat Scale": null,
+    "Upgrade Weight": null,
+    "Upgrade Scale": null,
+    "Max Upgrade": null,
+    "Bias": null,
+    "Upgrade Value": null,
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Critical Power",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": [2, 3, 4, 5],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [1, 10],
+    "Upgrade Scale": null,
+    "Max Upgrade": 10,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  }
+]

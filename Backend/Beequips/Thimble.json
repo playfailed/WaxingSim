@@ -1,0 +1,58 @@
+[
+  {
+    "StatName": "Convert Amount",
+    "StatCategory": null,
+    "StatType": null,
+    "Base Value": [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [75, 75],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": 3,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Convert Amount",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [1, 2, 3, 4, 5],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [50, 50],
+    "Upgrade Scale": null,
+    "Max Upgrade": 5,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Convert Amount",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": [1, 1],
+    "Base Stat Chance": [0.1, 1],
+    "Base Stat Scale": 2,
+    "Upgrade Weight": [10, 25],
+    "Upgrade Scale": null,
+    "Max Upgrade": 9,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Convert Amount",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Multiplier",
+    "Base Value": null,
+    "Base Stat Chance": null,
+    "Base Stat Scale": null,
+    "Upgrade Weight": [0.1, 1],
+    "Upgrade Scale": null,
+    "Max Upgrade": 1,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "StatName": "Red Gather Amount",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [5, 6, 7, 8, 9, 10],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [100, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": 3,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Flame Pollen",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [5, 6, 7, 8, 9, 10],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [100, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": 3,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Gathering Flames",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [1, 2, 3, 4, 5],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [10, 50],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Energy",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [5, 6, 7, 8, 9, 10],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": null,
+    "Upgrade Scale": null,
+    "Max Upgrade": null,
+    "Bias": null,
+    "Upgrade Value": null,
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Flame Pollen",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": [1, 1],
+    "Base Stat Chance": [1, 5],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [1, 5],
+    "Upgrade Scale": null,
+    "Max Upgrade": 10,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": true
+  }
+]

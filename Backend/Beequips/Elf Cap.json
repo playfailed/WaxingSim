@@ -1,0 +1,58 @@
+[
+  {
+    "StatName": "Convert Amount",
+    "StatCategory": null,
+    "StatType": null,
+    "Base Value": [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [100, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": 3,
+    "Upgrade Value": [2, 3],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Hive Convert Rate",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [100, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 2,
+    "Bias": 3,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Hive Convert Rate",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": [1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [10, 20],
+    "Upgrade Scale": null,
+    "Max Upgrade": 5,
+    "Bias": 4,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Honey At Hive",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": null,
+    "Base Stat Chance": null,
+    "Base Stat Scale": null,
+    "Upgrade Weight": [1, 10],
+    "Upgrade Scale": null,
+    "Max Upgrade": 10,
+    "Bias": 3,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  }
+]

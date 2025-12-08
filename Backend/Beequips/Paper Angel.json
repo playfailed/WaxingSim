@@ -1,0 +1,72 @@
+[
+  {
+    "StatName": "White Gather Amount",
+    "StatCategory": null,
+    "StatType": null,
+    "Base Value": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [100, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": 4,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Ability Pollen",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [1, 2, 3],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [5, 20],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": 4,
+    "Upgrade Value": [1, 0],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Token Link",
+    "StatCategory": "Ability",
+    "StatType": null,
+    "Base Value": null,
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": null,
+    "Upgrade Scale": null,
+    "Max Upgrade": null,
+    "Bias": null,
+    "Upgrade Value": null,
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Bee Ability Pollen",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": null,
+    "Base Stat Chance": null,
+    "Base Stat Scale": null,
+    "Upgrade Weight": [0.5, 5],
+    "Upgrade Scale": null,
+    "Max Upgrade": 3,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": true
+  },
+  {
+    "StatName": "Token Lifespan",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": null,
+    "Base Stat Chance": null,
+    "Base Stat Scale": null,
+    "Upgrade Weight": [1, 5],
+    "Upgrade Scale": null,
+    "Max Upgrade": 5,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": true
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "StatName": "Red Gather Amount",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [100, 100],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": 3,
+    "Upgrade Value": [1, 2],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Pollination Chance",
+    "StatCategory": null,
+    "StatType": "Percentage",
+    "Base Value": [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    "Base Stat Chance": [100, 100],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [25, 75],
+    "Upgrade Scale": null,
+    "Max Upgrade": 20,
+    "Bias": null,
+    "Upgrade Value": [1],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Bee Gather Pollen",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": [1, 1],
+    "Base Stat Chance": [20, 50],
+    "Base Stat Scale": null,
+    "Upgrade Weight": [10, 35],
+    "Upgrade Scale": null,
+    "Max Upgrade": 10,
+    "Bias": null,
+    "Upgrade Value": [1, 2, 3],
+    "Caustic Upgrade": false
+  },
+  {
+    "StatName": "Red Pollen",
+    "StatCategory": "Hive Bonus",
+    "StatType": "Percentage",
+    "Base Value": null,
+    "Base Stat Chance": null,
+    "Base Stat Scale": null,
+    "Upgrade Weight": [1, 10],
+    "Upgrade Scale": null,
+    "Max Upgrade": 5,
+    "Bias": null,
+    "Upgrade Value": [2, 3, 4, 5],
+    "Caustic Upgrade": false
+  }
+]

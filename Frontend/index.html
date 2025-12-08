@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BSS Waxing</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div class="grid">
+        <div class="topleft">
+            <div id="CurrentStats">
+                <div class="BeequipOverview">
+                    <h2>Null</h2>
+                    <img src="">
+                    <p>Potential: (N/A)</p>
+                </div>
+
+                <div id="BeequipStats"></div>
+
+                <div id="WaxSlot">
+                    <table>
+                        <thead>
+                            <th colspan="5">Wax Used:</th>
+                        </thead>
+                        <tbody>
+                            <td id="wax1"></td>
+                            <td id="wax2"></td>
+                            <td id="wax3"></td>
+                            <td id="wax4"></td>
+                            <td id="wax5"></td>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <form>
+                        <label for="beequip">Beequip:</label>
+                        <select id="beequip" name="beequip">
+                            <option value="Autumn Sunhat">Autumn Sunhat</option>
+                            <option value="Bandage">Bandage</option>
+                            <option value="Bang Snap">Bang Snap</option>
+                            <option value="Bead Lizard">Bead Lizard</option>
+                            <option value="Beesmas Top">Beesmas Top</option>
+                            <option value="Beesmas Tree Hat">Beesmas Tree Hat</option>
+                            <option value="Beret">Beret</option>
+                            <option value="Bottle Cap">Bottle Cap</option>
+                            <option value="Bubble Light">Bubble Light</option>
+                            <option value="Camo Bandana">Camo Bandana</option>
+                            <option value="Camphor Lip Balm">Camphor Lip Balm</option>
+                            <option value="Candy Ring">Candy Ring</option>
+                            <option value="Charm Bracelet">Charm Bracelet</option>
+                            <option value="Demon Talisman">Demon Talisman</option>
+                            <option value="Electric Candle">Electric Candle</option>
+                            <option value="Elf Cap">Elf Cap</option>
+                            <option value="Festive Wreath">Festive Wreath</option>
+                            <option value="Icicles">Icicles</option>
+                            <option value="Kazoo">Kazoo</option>
+                            <option value="Lei">Lei</option>
+                            <option value="Lump Of Coal">Lump Of Coal</option>
+                            <option value="Paper Angel">Paper Angel</option>
+                            <option value="Paperclip">Paperclip</option>
+                            <option value="Reindeer Antlers">Reindeer Antlers</option>
+                            <option value="Peppermint Antennas">Peppermint Antennas</option>
+                            <option value="Pinecone">Pinecone</option>
+                            <option value="Pink Eraser">Pink Eraser</option>
+                            <option value="Pink Shades">Pink Shades</option>
+                            <option value="Poinsettia">Poinsettia</option>
+                            <option value="Rose Headband">Rose Headband</option>
+                            <option value="Sweatband">Sweatband</option>
+                            <option value="Smiley Sticker">Smiley Sticker</option>
+                            <option value="Single Mitten">Single Mitten</option>
+                            <option value="Snow Tiara">Snow Tiara</option>
+                            <option value="Snowglobe">Snowglobe</option>
+                            <option value="Thimble">Thimble</option>
+                            <option value="Thumbtack">Thumbtack</option>
+                            <option value="Toy Drum">Toy Drum</option>
+                            <option value="Toy Horn">Toy Horn</option>
+                            <option value="Warm Scarf">Warm Scarf</option>
+                            <option value="Whistle">Whistle</option>
+                        </select>
+
+                        <label for="potiental">Potiental:</label>
+                        <input type="text" id="potential" name="potential"
+                            placeholder="[0-1], Blank for ?? Pot">
+
+                        <input type="submit" value="Reset Beequip">
+                    </form>
+                </div>
+
+                <div id="WaxMenu">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <button class="waxbutton" id="Soft-Wax">
+                                        <div class="waxicon">
+                                            <img src="/Waxes/Soft_Wax.png" alt="Add Soft Wax Button">
+                                            <img src="/Indicators/Add.png" class="overlay-img">
+                                        </div>
+                                    </button>
+                                </th>
+                                <th>
+                                    <button class="waxbutton" id="Hard-Wax">
+                                        <div class="waxicon">
+                                            <img src="/Waxes/Hard_Wax.png" alt="Add Hard Wax Button">
+                                            <img src="/Indicators/Add.png" class="overlay-img">
+                                        </div>
+                                    </button>
+                                </th>
+                                <th><button class="waxbutton" id="Swirled-Wax">
+                                        <div class="waxicon">
+                                            <img src="/Waxes/Swirled_Wax.png" alt="Add Swirled Wax Button">
+                                            <img src="/Indicators/Add.png" class="overlay-img">
+                                        </div>
+                                    </button>
+                                </th>
+                                <th>
+                                    <button class="waxbutton" id="Caustic-Wax">
+                                        <div class="waxicon">
+                                            <img src="/Waxes/Caustic_Wax.png" alt="Add Caustic Wax Button">
+                                            <img src="/Indicators/Add.png" class="overlay-img">
+                                        </div>
+                                    </button>
+                                </th>
+                                <th>
+                                    <button class="waxbutton" id="Debug-Wax">
+                                        <div class="waxicon">
+                                            <img src="/Waxes/Debug_Wax.png" alt="Add Debug Wax Button">
+                                            <img src="/Indicators/Add.png" class="overlay-img">
+                                        </div>
+                                    </button>
+                                </th>
+                                <th>
+                                    <button class="waxbutton" id="Turpentine">
+                                        <div class="waxicon">
+                                            <img src="/Waxes/Turpentine.png" alt="Add Turpentine Button">
+                                            <img src="/Indicators/Add.png" class="overlay-img">
+                                        </div>
+                                    </button>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td id="Soft-Wax" class="Counter">0</td>
+                                <td id="Hard-Wax" class="Counter">0</td>
+                                <td id="Swirled-Wax" class="Counter">0</td>
+                                <td id="Caustic-Wax" class="Counter">0</td>
+                                <td id="Debug-Wax" class="Counter">0</td>
+                                <td id="Turpentine" class="Counter">0</td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="topright">
+            <div id="graph"></div>
+        </div>
+
+        <div class="centralright">
+            <h2>Console</h2>
+            <div id="Logs"></div>
+        </div>
+
+        <div class="bottom">
+            <h2>SpreadSheet</h2>
+            <div id="SpreadSheet">
+                <table id="UpgradeTable">
+                    <thead>
+                        <tr>
+                            <th>Beequip Stat</th>
+                            <th>Weightings (%)</th>
+                            <th>Value(s)</th>
+                            <th>Bias (x)</th>
+                            <th>Upgrade (%)</th>
+                            <th>True Unique Upgrade (%)</th>
+                            <th>True Stat Upgrade (%)</th>
+                            <th>Upgrade Limit</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Beequip Stat</th>
+                            <th>Minimum Base Value</th>
+                            <th>Maximum Base Value</th>
+                            <th>Base Stats Chance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="BaseTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
