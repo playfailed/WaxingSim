@@ -274,7 +274,7 @@ function updatecurrentstat(p, CurrentBeequipStat, CurrentValue) {
     ${(CurrentBeequipStat["StatCategory"] == "Hive Bonus") ? "[Hive Bonus] " : ""}
     ${(CurrentBeequipStat["StatType"] != "Multiplier") ? (((CurrentValue < 0) ? "" : "+") + ((CurrentBeequipStat["StatCategory"] == "Ability") ? "Ability: " : "") + CurrentValue + (((CurrentBeequipStat["StatType"] == "Percentage")) ? "%" : "")) : "x" + (100 + Number(CurrentValue)) / 100}
     ${(CurrentBeequipStat["StatCategory"] != "Ability") ? " " + CurrentBeequipStat["StatName"] : ""}
-    ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Upgrades"].length > 0 && CurrentBeequipStat["StatCategory"] != "Ability") ? ` ( ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"] ?? "-".replace("null", "-"))} + ${CurrentValue - beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"]} )` : ((CurrentBeequipStat["StatCategory"] == "Ability") ? "(From Wax)" : "")}
+    ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Upgrades"].length > 0 && CurrentBeequipStat["StatCategory"] != "Ability") ? ` ( ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"] ?? "-".replace("null", "-"))} + ${CurrentValue - beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"]} )` : ((CurrentBeequipStat["StatCategory"] == "Ability" && beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Upgrades"].length > 0) ? "(From Wax)" : "")}
     `
 }
 
@@ -387,12 +387,12 @@ function initwaxbutton() {
 
         button.addEventListener('click', () => {
             if (isbroken) { InsertLog(`Beequip is broken.`, "negativestat"); return }
+            if (WaxArray.length >= 5 && button.id != "Turpentine") { InsertLog(`Beequip Has 5 Waxes.`, "negativestat"); return }
 
             clicks += 1;
             Counter.innerHTML = clicks;
 
             if (button.id == "Turpentine") { WaxArray = TurpentineStats(); return }
-            if (WaxArray.length >= 5) { InsertLog(`Beequip Has 5 Waxes.`, "negativestat"); return }
 
             const Roll = Math.floor(Math.random() * 100)
             WaxArray.push(button.id)
