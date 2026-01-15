@@ -443,7 +443,7 @@ function rollupgrades(Wax) {
 
         const BeeStatUpgrade = GetWeightedDraw(chances)
 
-        if (BeeStatUpgrade == null) { InsertLog(`Theres no Elgibiable Upgrades left`, "negativestat"); return }
+        if (BeeStatUpgrade == null) { InsertLog(`Theres no Eligible Upgrades left`, null); return }
 
         var statarry = getbeestatarryfromname(BeeStatUpgrade)
 
@@ -470,7 +470,7 @@ function TurpentineStats() {
         value.Value = value.OriginalValue
         updatecurrentstat(document.getElementById(BeequipNameFormated(value).replaceAll(" ", "_")), value, value.OriginalValue)
     });
-    InsertLog(`Turpentined Beequip`, "hivebonus")
+    InsertLog(`Turpentined Beequip`, null)
     for (let i = 1; i <= 5; i++) { document.getElementById("wax" + i).innerHTML = "" }
     return []
 }

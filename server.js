@@ -3,9 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
-// Fix __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -13,24 +12,26 @@ const __dirname = path.dirname(__filename);
 // STATIC FILES
 // -----------------------------
 
-// Serve JSON files in backend/beequips
-app.use('/beequips', express.static(path.join(__dirname, 'beequips')));
+// JSON files
+const BEEQUIPS_DIR = path.join(__dirname, 'backend', 'beequips');
+app.use('/beequips', express.static(BEEQUIPS_DIR));
 
-// Serve frontend
-app.use(express.static(path.join(__dirname, '../Frontend')));
+// Frontend
+const FRONTEND_DIR = path.join(__dirname, 'Frontend');
+app.use(express.static(FRONTEND_DIR));
 
 // -----------------------------
 // ROUTES
 // -----------------------------
 
-// Catch-all → SPA routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../Frontend', 'index.html'));
+  res.sendFile(path.join(FRONTEND_DIR, 'index.html'));
 });
 
 // -----------------------------
-// START SERVER (ONLY ONCE)
+// START SERVER
 // -----------------------------
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
