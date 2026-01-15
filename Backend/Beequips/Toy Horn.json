@@ -71,7 +71,7 @@
   },
   {
     "StatName": "Bee Ability Pollen",
-    "StatCategory": null,
+    "StatCategory": "Hive Bonus",
     "StatType": "Percentage",
     "Base Value": null,
     "Base Stat Chance": null,
@@ -85,7 +85,7 @@
   },
   {
     "StatName": "Convert Rate",
-    "StatCategory": null,
+    "StatCategory": "Hive Bonus",
     "StatType": "Percentage",
     "Base Value": null,
     "Base Stat Chance": null,

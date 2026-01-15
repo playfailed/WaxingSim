@@ -3,7 +3,7 @@
     "StatName": "Gather Amount",
     "StatCategory": null,
     "StatType": null,
-    "Base Value": [5, 10],
+    "Base Value": [5, 6, 7, 8, 9, 10],
     "Base Stat Chance": [100, 100],
     "Base Stat Scale": null,
     "Upgrade Weight": [100, 100],
@@ -14,10 +14,10 @@
     "Caustic Upgrade": false
   },
   {
-    "StatName": "Bomb Pollen",
+    "StatName": "Gather Amount",
     "StatCategory": null,
     "StatType": "Percentage",
-    "Base Value": [10, 15],
+    "Base Value": [10, 11, 12, 13, 14, 15],
     "Base Stat Chance": [100, 100],
     "Base Stat Scale": null,
     "Upgrade Weight": [100, 100],
@@ -29,9 +29,9 @@
   },
   {
     "StatName": "Capacity",
-    "StatCategory": null,
+    "StatCategory": "Hive Bonus",
     "StatType": null,
-    "Base Value": [7500, 10000],
+    "Base Value": [7500, 8000, 8500, 9000, 9500, 10000],
     "Base Stat Chance": [100, 100],
     "Base Stat Scale": null,
     "Upgrade Weight": [25, 100],
@@ -43,7 +43,7 @@
   },
   {
     "StatName": "Red Pollen",
-    "StatCategory": null,
+    "StatCategory": "Hive Bonus",
     "StatType": "Percentage",
     "Base Value": null,
     "Base Stat Chance": null,
