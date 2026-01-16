@@ -14,17 +14,8 @@ const __dirname = path.dirname(__filename);
 // -----------------------------
 
 // JSON files
-const BEEQUIPS_DIR = path.join(__dirname, 'backend', 'beequips');
+const BEEQUIPS_DIR = path.join(__dirname, 'Backend', 'Beequips');
 app.use('/beequips', express.static(BEEQUIPS_DIR));
-
-fs.readdir(BEEQUIPS_DIR, (err, files) => {
-  if (err) {
-    console.error('Error reading beequips folder:', err);
-  } else {
-    console.log('Files in /beequips folder:');
-    files.forEach(f => console.log(' -', f));
-  }
-});
 
 // Frontend
 const FRONTEND_DIR = path.join(__dirname, 'Frontend');
