@@ -67,7 +67,7 @@
     "Max Upgrade": 10,
     "Bias": null,
     "Upgrade Value": [1],
-    "Caustic Upgrade": true
+    "Caustic Upgrade": false
   },
   {
     "StatName": "Flame Pollen",
@@ -81,7 +81,7 @@
     "Max Upgrade": 10,
     "Bias": null,
     "Upgrade Value": [1],
-    "Caustic Upgrade": true
+    "Caustic Upgrade": false
   },
   {
     "StatName": "Bee Ability Pollen",

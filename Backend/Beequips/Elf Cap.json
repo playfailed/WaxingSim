@@ -22,7 +22,7 @@
     "Base Stat Scale": null,
     "Upgrade Weight": [100, 100],
     "Upgrade Scale": null,
-    "Max Upgrade": 2,
+    "Max Upgrade": 20,
     "Bias": 3,
     "Upgrade Value": [1, 2],
     "Caustic Upgrade": false

@@ -145,6 +145,82 @@ function newsubcell(parent, arraycontent) {
     }
 }
 
+function totalDistribution(n, k, p, bonusProbs, bonusValues) {
+    const maxBonusValue = Math.max(...bonusValues);
+    const maxTotal = n * maxBonusValue;
+
+    let dp = Array.from({ length: n + 1 }, () =>
+        Array(maxTotal + 1).fill(0)
+    );
+
+    dp[0][0] = 1;
+
+    for (let roll = 0; roll < k; roll++) {
+        const next = Array.from({ length: n + 1 }, () =>
+            Array(maxTotal + 1).fill(0)
+        );
+
+        for (let s = 0; s <= n; s++) {
+            for (let t = 0; t <= maxTotal; t++) {
+                const prob = dp[s][t];
+                if (prob === 0) continue;
+
+                // if cap reached → frozen
+                if (s === n) {
+                    next[s][t] += prob;
+                    continue;
+                }
+
+                // fail
+                next[s][t] += prob * (1 - p);
+
+                // success → bonus
+                for (let i = 0; i < bonusValues.length; i++) {
+                    next[s + 1][t + bonusValues[i]] += prob * p * bonusProbs[i];
+                }
+            }
+        }
+        dp = next;
+    }
+
+    const result = Array(maxTotal + 1).fill(0);
+    for (let s = 0; s <= n; s++) {
+        for (let t = 0; t <= maxTotal; t++) {
+            result[t] += dp[s][t];
+        }
+    }
+
+    return result;
+}
+
+function ProbailityTotalGraph(n, k, p, ButtonID, TextChanceType, bonusProbs, bonusValues) {
+    const result = totalDistribution(n, k, p, bonusProbs, bonusValues);
+
+    var PMD = []
+    var CDF = []
+    var input = []
+
+    result.forEach((y, x) => {
+        if (y > 0) {
+            PMD.push(y * 100)
+            CDF.push(PMD.reduce(getSum, 0))
+            input.push(x)
+        }
+    });
+
+    beequipbuttons[ButtonID] = [
+        { x: input, y: PMD, fill: 'tonexty', type: 'scatter', mode: 'none', name: 'PMD' },
+        { x: input, y: CDF, fill: 'tonexty', type: 'scatter', mode: 'none', name: 'CDF' }
+    ]
+    beequipTitles[ButtonID] = {
+        title: { text: `Likelyhood of ${TextChanceType} in ${k} rolls` },
+        xaxis: { title: { text: 'Total of ' + TextChanceType } },
+        yaxis: { title: { text: 'Chance %' }, type: 'log' },
+        barmode: "stack",
+        autosize: true,
+    }
+}
+
 function initupgradetable(BeequipStat, TotalUpgradeWeight, noncausticstats, causticstats) {
     const BaseRowInfo = document.createElement("tr")
 
@@ -164,16 +240,17 @@ function initupgradetable(BeequipStat, TotalUpgradeWeight, noncausticstats, caus
         for (let x = 0; x < 11; x++) { beequipbuttons[`Pot Weight ${BeequipNameFormated(BeequipStat)}`][0]["x"].push(x / 10); beequipbuttons[`Pot Weight ${BeequipNameFormated(BeequipStat)}`][0]["y"].push((WeightingMax - WeightingMin) * (x / 10) ** (WeightingScale) + WeightingMin) }
     }
 
-    if ((BeequipStat["Upgrade Value"] ?? []).length <= 1) { newupgradecell(BaseRowInfo, BeequipStat["Upgrade Value"] ? BeequipStat["Upgrade Value"][0] : "-") } else {
-        var ValueArray = []
-        for (let i = 0; i < BeequipStat["Upgrade Value"].length; i++) { ValueArray.push(BeequipStat["Upgrade Value"][i]) }
-        newsubcell(BaseRowInfo, ValueArray)
-    }
+    if ((BeequipStat["Upgrade Value"] ?? []).length <= 1) {
+        newupgradecell(BaseRowInfo, BeequipStat["Upgrade Value"] ? BeequipStat["Upgrade Value"][0] : "-")
+        newupgradecell(BaseRowInfo, BeequipStat["Bias"] ? `<button class="graphbutton" id="Bias ${BeequipNameFormated(BeequipStat)}">${BeequipStat["Bias"]}</button>` : "-")
+        newupgradecell(BaseRowInfo, "100%")
 
-    newupgradecell(BaseRowInfo, BeequipStat["Bias"] ? `<button class="graphbutton" id="Bias ${BeequipNameFormated(BeequipStat)}">${BeequipStat["Bias"]}</button>` : "-")
-
-    if ((BeequipStat["Upgrade Value"] ?? []).length <= 1) { newupgradecell(BaseRowInfo, "100%") } else {
-        var ValueArray = []
+        newupgradecell(BaseRowInfo, Math.round(ActualWeighting / TotalUpgradeWeight * 100000) / 1000 + "%")
+        beequipbuttons["Pie Value Percentage"][0]["values"].push(ActualWeighting / TotalUpgradeWeight * 100)
+        beequipbuttons["Pie Value Percentage"][0]["labels"].push(BeequipNameFormated(BeequipStat))
+    } else {
+        var DisplayArray = []
+        var UniqueArray = []
 
         beequipbuttons[`Bias ${BeequipNameFormated(BeequipStat)}`] = []
         beequipTitles[`Bias ${BeequipNameFormated(BeequipStat)}`] = {
@@ -184,84 +261,28 @@ function initupgradetable(BeequipStat, TotalUpgradeWeight, noncausticstats, caus
         }
 
         for (let i = 0; i < BeequipStat["Upgrade Value"].length; i++) {
-            ValueArray.push(Math.round(BeequipValueBiasChance(BeequipStat["Upgrade Value"].length - 1 - i, BeequipStat["Upgrade Value"].length - 1, BeequipStat["Bias"] ?? 1, potential) * 100) + "%")
+            const p = BeequipValueBiasChance(BeequipStat["Upgrade Value"].length - 1 - i, BeequipStat["Upgrade Value"].length - 1, BeequipStat["Bias"] ?? 1, potential)
+
+            DisplayArray.push(Math.round(p * 100) + "%")
+            UniqueArray.push(`<button class="graphbutton hasvariable" id="${BeequipNameFormated(BeequipStat)} ${i + 1}">${Math.round(ActualWeighting / TotalUpgradeWeight * BeequipValueBiasChance(BeequipStat["Upgrade Value"].length - 1 - i, BeequipStat["Upgrade Value"].length - 1, BeequipStat["Bias"] ?? 1, potential) * 100000) / 1000}%</button>`)
+
             beequipbuttons[`Bias ${BeequipNameFormated(BeequipStat)}`].push({ x: [], y: [], type: 'scatter', name: BeequipStat["Upgrade Value"][i] })
             for (let x = 0; x < 11; x++) {
                 beequipbuttons[`Bias ${BeequipNameFormated(BeequipStat)}`][i]["x"].push(x / 10)
-                beequipbuttons[`Bias ${BeequipNameFormated(BeequipStat)}`][i]["y"].push(BeequipValueBiasChance(BeequipStat["Upgrade Value"].length - 1 - i, BeequipStat["Upgrade Value"].length - 1, BeequipStat["Bias"] ?? 1, x / 10))
+                beequipbuttons[`Bias ${BeequipNameFormated(BeequipStat)}`][i]["y"].push(BeequipValueBiasChance(BeequipStat["Upgrade Value"].length - 1 - i, BeequipStat["Upgrade Value"].length - 1, BeequipStat["Bias"] ?? 1, x / 10) * 100)
             }
-        }
-        newsubcell(BaseRowInfo, ValueArray)
-    }
-
-    if ((BeequipStat["Upgrade Value"] ?? []).length <= 1) {
-        newupgradecell(BaseRowInfo, Math.round(ActualWeighting / TotalUpgradeWeight * 100000) / 1000 + "%")
-        beequipbuttons["Pie Value Percentage"][0]["values"].push(ActualWeighting / TotalUpgradeWeight * 100)
-        beequipbuttons["Pie Value Percentage"][0]["labels"].push(BeequipNameFormated(BeequipStat))
-    } else {
-        var ValueArray = []
-        for (let i = 0; i < BeequipStat["Upgrade Value"].length; i++) {
-            ValueArray.push(`<button class="graphbutton" id="Expected Value ${BeequipNameFormated(BeequipStat)} Value ${i + 1}">${Math.round(ActualWeighting / TotalUpgradeWeight * BeequipValueBiasChance(BeequipStat["Upgrade Value"].length - 1 - i, BeequipStat["Upgrade Value"].length - 1, BeequipStat["Bias"] ?? 1, potential) * 100000) / 1000}%</button>`)
-
-            var PMD = []
-            var CDF = []
-            var input = []
-            let n = BeequipStat["Max Upgrade"]
-            let p = BeequipValueBiasChance(BeequipStat["Upgrade Value"].length - 1 - i, BeequipStat["Upgrade Value"].length - 1, BeequipStat["Bias"] ?? 1, potential)
 
             beequipbuttons["Pie Value Percentage"][0]["values"].push(ActualWeighting / TotalUpgradeWeight * p * 100)
             beequipbuttons["Pie Value Percentage"][0]["labels"].push(BeequipNameFormated(BeequipStat) + " " + (BeequipStat["Upgrade Value"][i] ?? ""))
-
-            for (let x = 0; x <= n; x++) {
-                let y = (factorial(n) / (factorial(x) * factorial(n - x))) * ((p) ** x) * ((1 - p) ** (n - x)) * 100
-                PMD.push(y)
-                CDF.push(PMD.reduce(getSum, 0))
-                input.push(x)
-            }
-            beequipbuttons[`Expected Value ${BeequipNameFormated(BeequipStat)} Value ${i + 1}`] = [
-                { x: input, y: PMD, fill: 'tonexty', type: 'scatter', mode: 'none', name: 'PMD' },
-                { x: input, y: CDF, fill: 'tonexty', type: 'scatter', mode: 'none', name: 'CDF' }
-            ]
-            beequipTitles[`Expected Value ${BeequipNameFormated(BeequipStat)} Value ${i + 1}`] = {
-                title: { text: `Likelyhood of ${BeequipNameFormated(BeequipStat)} ${BeequipStat["Upgrade Value"][i]} in ${n} rolls` },
-                xaxis: { title: { text: '# of Successful Upgrades' } },
-                yaxis: { title: { text: 'Chance %' }, type: 'log' },
-                barmode: "stack",
-                autosize: true,
-            }
         }
-
-        newsubcell(BaseRowInfo, ValueArray)
+        newsubcell(BaseRowInfo, BeequipStat["Upgrade Value"])
+        newupgradecell(BaseRowInfo, BeequipStat["Bias"] ? `<button class="graphbutton" id="Bias ${BeequipNameFormated(BeequipStat)}">${BeequipStat["Bias"]}</button>` : "-")
+        newsubcell(BaseRowInfo, DisplayArray)
+        newsubcell(BaseRowInfo, UniqueArray)
     }
 
-    newupgradecell(BaseRowInfo, ((BeequipStat["Max Upgrade"] ?? 0) > 1) ? `<button class="graphbutton" id="Expected Value ${BeequipNameFormated(BeequipStat)}">${Math.round(ActualWeighting / TotalUpgradeWeight * 100000) / 1000}%</button>` : Math.round(ActualWeighting / TotalUpgradeWeight * 100000) / 1000 + "%")
-
-    if ((BeequipStat["Max Upgrade"] ?? 0) > 1) {
-        var PMD = []
-        var CDF = []
-        var input = []
-        let n = BeequipStat["Max Upgrade"]
-        for (let x = 0; x <= n; x++) {
-            let p = ActualWeighting / TotalUpgradeWeight
-            let y = (factorial(20) / (factorial(x) * factorial(20 - x))) * ((p) ** x) * ((1 - p) ** (20 - x)) * 100
-            PMD.push(y)
-            CDF.push(PMD.reduce(getSum, 0))
-            input.push(x)
-        }
-        beequipbuttons[`Expected Value ${BeequipNameFormated(BeequipStat)}`] = [
-            { x: input, y: PMD, fill: 'tonexty', type: 'scatter', mode: 'none', name: 'PMD' },
-            { x: input, y: CDF, fill: 'tonexty', type: 'scatter', mode: 'none', name: 'CDF' }
-        ]
-        beequipTitles[`Expected Value ${BeequipNameFormated(BeequipStat)}`] = {
-            title: { text: `Likelyhood of ${BeequipNameFormated(BeequipStat)} in ${20} rolls` },
-            xaxis: { title: { text: '# of Successful Upgrades' } },
-            yaxis: { title: { text: 'Chance %' }, type: 'log' },
-            barmode: "stack",
-            autosize: true,
-        }
-    }
-
-    newupgradecell(BaseRowInfo, BeequipStat["Max Upgrade"])
+    newupgradecell(BaseRowInfo, ((BeequipStat["Upgrade Value"] ?? []).length > 1) ? `<button class="graphbutton hasvariable" id="${BeequipNameFormated(BeequipStat)} Overall">${Math.round(ActualWeighting / TotalUpgradeWeight * 100000) / 1000}%</button>` : Math.round(ActualWeighting / TotalUpgradeWeight * 100000) / 1000 + "%")
+    newupgradecell(BaseRowInfo, `<button class="graphbutton hasvariable" id="${BeequipNameFormated(BeequipStat)} Upgrades">${BeequipStat["Max Upgrade"]}</button>`)
 
     BeequipStat["Caustic Upgrade"] ? causticstats.push(BaseRowInfo) : noncausticstats.push(BaseRowInfo);
 }
@@ -274,7 +295,7 @@ function updatecurrentstat(p, CurrentBeequipStat, CurrentValue) {
     ${(CurrentBeequipStat["StatCategory"] == "Hive Bonus") ? "[Hive Bonus] " : ""}
     ${(CurrentBeequipStat["StatType"] != "Multiplier") ? (((CurrentValue < 0) ? "" : "+") + ((CurrentBeequipStat["StatCategory"] == "Ability") ? "Ability: " : "") + CurrentValue + (((CurrentBeequipStat["StatType"] == "Percentage")) ? "%" : "")) : "x" + (100 + Number(CurrentValue)) / 100}
     ${(CurrentBeequipStat["StatCategory"] != "Ability") ? " " + CurrentBeequipStat["StatName"] : ""}
-    ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Upgrades"].length > 0 && CurrentBeequipStat["StatCategory"] != "Ability") ? ` ( ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"] ?? "-".replace("null", "-"))} + ${CurrentValue - beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"]} )` : ((CurrentBeequipStat["StatCategory"] == "Ability" && beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Upgrades"].length > 0) ? "(From Wax)" : "")}
+    ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Upgrades"].length > 0 && CurrentBeequipStat["StatCategory"] != "Ability") ? ` ( ${(beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"] ?? "-".replace("null", "-"))} + ${Math.round(CurrentValue - beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Value"])} )` : ((CurrentBeequipStat["StatCategory"] == "Ability" && beequipstats[BeequipNameFormated(CurrentBeequipStat)]["Upgrades"].length > 0) ? "(From Wax)" : "")}
     `
 }
 
@@ -286,7 +307,7 @@ async function initbeequip() {
     const beequip = params.get("beequip") ?? null;
     potential = params.get("potential") ? ((Math.abs(params.get("potential")) >= 0) ? Math.abs(params.get("potential")) : 1) : Math.random();
 
-    try { const res = await fetch(`/beequips/${beequip}.json`); json = await res.json() } catch (err) { console.log("Couldn't load Data, Try another valid beequip."); console.error(err); return }
+    try { const res = await fetch(`/beequips/${beequip}.json`); json = await res.json() } catch (err) { InsertLog("Couldn't load Data, Try another valid beequip."); console.error(err); return }
 
     initbeequipoverview(beequip, potential)
 
@@ -342,6 +363,31 @@ async function initbeequip() {
     document.querySelectorAll('.graphbutton').forEach(button => {
         button.addEventListener('click', () => {
             InsertLog(`Plotting ${button.id}`, "postivestat")
+
+            if (button.classList.contains('hasvariable')) {
+                let k = prompt("Please enter # of succeeded rolls, this assumes caustic upgrades included.", "20") ?? 20
+                var stat
+
+                for (let i = 0; i < json.length; i++) { console.log(BeequipNameFormated(json[i]), button.id.trim().split(" ").slice(0, -1).join(" "));if (button.id.trim().split(" ").slice(0, -1).join(" ") === BeequipNameFormated(json[i])) { stat = json[i]; break } }
+                if (stat == null) { InsertLog("Stat not found.", "negativestat"); return }
+
+                const Weighting = stat["Upgrade Weight"]
+                const WeightingMin = Weighting[0]
+                const WeightingMax = Weighting[Weighting.length - 1]
+                const WeightingScale = stat["Upgrade Scale"] ?? 1
+                const ActualWeighting = (WeightingMax - WeightingMin) * (potential) ** (WeightingScale) + WeightingMin
+
+                if (button.id.includes("Upgrades")) { ProbailityTotalGraph(stat["Max Upgrade"], k, ActualWeighting / initupgradetotal(json, potential)[0], `${BeequipNameFormated(stat)} Upgrades`, BeequipNameFormated(stat), [1], [1]) }
+                else if (button.id.includes("Overall")) {
+                    var PlotArray = []
+                    for (let i = 0; i < stat["Upgrade Value"].length; i++) {PlotArray.push(BeequipValueBiasChance(stat["Upgrade Value"].length - 1 - i, stat["Upgrade Value"].length - 1, stat["Bias"] ?? 1, potential))}
+                    ProbailityTotalGraph(stat["Max Upgrade"], k, ActualWeighting / initupgradetotal(json, potential)[0], `${BeequipNameFormated(stat)} Overall`, BeequipNameFormated(stat), PlotArray, stat["Upgrade Value"])
+                } else {
+                    const i = Number(button.id.match(/(\d+)\s*$/)[1]) - 1
+                    ProbailityTotalGraph(stat["Max Upgrade"], k, ActualWeighting / initupgradetotal(json, potential)[0] * BeequipValueBiasChance(stat["Upgrade Value"].length - 1 - i, stat["Upgrade Value"].length - 1, stat["Bias"] ?? 1, potential), `${BeequipNameFormated(stat)} ${i + 1}`, BeequipNameFormated(stat) + " " + stat["Upgrade Value"][i], [1], [stat["Upgrade Value"][i]])
+                }
+            }
+
             Plotly.newPlot("graph", beequipbuttons[button.id], beequipTitles[button.id], { responsive: true, displaylogo: false });
         });
     });
@@ -355,10 +401,6 @@ function InsertLog(str, ClassName) {
     p.classList.add(ClassName)
     box.appendChild(p);
     setTimeout(() => p.remove(), 5000);
-}
-
-function factorial(x) {
-    return [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800, 87178291200, 1307674368000, 20922789888000, 355687428096000, 6402373705728000, 121645100408832000, 2432902008176640000][x]
 }
 
 function GetWeightedDraw(Dictionary) {
@@ -449,7 +491,7 @@ function rollupgrades(Wax) {
 
         var Values = []
 
-        if (statarry["StatCategory"] == "Ability") {statarry["Upgrade Value"] = [statarry["StatName"]]}
+        if (statarry["StatCategory"] == "Ability") { statarry["Upgrade Value"] = [statarry["StatName"]] }
 
         for (let i = 0; i < statarry["Upgrade Value"].length; i++) { Values.push(BeequipValueBiasChance(statarry["Upgrade Value"].length - 1 - i, statarry["Upgrade Value"].length - 1, statarry["Bias"] ?? 1, potential)) };
 
@@ -476,8 +518,8 @@ function TurpentineStats() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    InsertLog("Loading Beequip")
     initbeequip()
     initwaxbutton()
-    console.log(beequipstats)
 })
 

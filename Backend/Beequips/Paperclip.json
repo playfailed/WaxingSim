@@ -53,7 +53,7 @@
     "Max Upgrade": 1,
     "Bias": null,
     "Upgrade Value": null,
-    "Caustic Upgrade": false
+    "Caustic Upgrade": true
   },
  {
     "StatName": "Token Lifespan",

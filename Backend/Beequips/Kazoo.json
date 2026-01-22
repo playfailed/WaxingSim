@@ -81,6 +81,6 @@
     "Max Upgrade": 5,
     "Bias": null,
     "Upgrade Value": [1],
-    "Caustic Upgrade": false
+    "Caustic Upgrade": true
   }
 ]

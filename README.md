@@ -15,7 +15,7 @@
 
 ## About The Project
 
-WaxingSim is a tool built to emulate the waxing and beequip mechanics found in Bee Swarm Simulator, making it easier to understand how the system behaves under different conditions. You can access this app via this link [here]().
+WaxingSim is a tool built to emulate the waxing and beequip mechanics found in Bee Swarm Simulator, making it easier to understand how the system behaves under different conditions. You can access this app via this link [here](https://waxingsim.onrender.com/).
 
 The project focuses on clarity, transparency, and accurate modelling of the game’s underlying probabilities.
 

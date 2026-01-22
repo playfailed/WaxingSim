@@ -34,7 +34,7 @@
     "Base Value": [1, 2],
     "Base Stat Chance": [100, 100],
     "Base Stat Scale": null,
-    "Upgrade Weight": [2, 8],
+    "Upgrade Weight": [10, 20],
     "Upgrade Scale": 1.5,
     "Max Upgrade": 3,
     "Bias": null,
