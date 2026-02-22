@@ -214,7 +214,7 @@ function ProbailityTotalGraph(n, k, p, ButtonID, TextChanceType, bonusProbs, bon
     ]
     beequipTitles[ButtonID] = {
         title: { text: `Likelyhood of ${TextChanceType} in ${k} rolls` },
-        xaxis: { title: { text: 'Total of ' + TextChanceType } },
+        xaxis: { title: { text: 'Total ' + TextChanceType } },
         yaxis: { title: { text: 'Chance %' }, type: 'log' },
         barmode: "stack",
         autosize: true,
@@ -362,14 +362,16 @@ async function initbeequip() {
 
     document.querySelectorAll('.graphbutton').forEach(button => {
         button.addEventListener('click', () => {
-            InsertLog(`Plotting ${button.id}`, "postivestat")
+            InsertLog(`Plotting ${button.id}`)
 
             if (button.classList.contains('hasvariable')) {
-                let k = prompt("Please enter # of succeeded rolls, this assumes caustic upgrades included.", "20") ?? 20
+                let k = prompt("Please enter # of succeeded rolls.", "20") ?? 20
                 var stat
 
-                for (let i = 0; i < json.length; i++) { console.log(BeequipNameFormated(json[i]), button.id.trim().split(" ").slice(0, -1).join(" "));if (button.id.trim().split(" ").slice(0, -1).join(" ") === BeequipNameFormated(json[i])) { stat = json[i]; break } }
+                for (let i = 0; i < json.length; i++) { if (button.id.trim().split(" ").slice(0, -1).join(" ") === BeequipNameFormated(json[i])) { stat = json[i]; break } }
                 if (stat == null) { InsertLog("Stat not found.", "negativestat"); return }
+
+                let causticincluded = stat["Caustic Upgrade"] || confirm("Include Caustic Upgrades?")
 
                 const Weighting = stat["Upgrade Weight"]
                 const WeightingMin = Weighting[0]
@@ -377,14 +379,16 @@ async function initbeequip() {
                 const WeightingScale = stat["Upgrade Scale"] ?? 1
                 const ActualWeighting = (WeightingMax - WeightingMin) * (potential) ** (WeightingScale) + WeightingMin
 
-                if (button.id.includes("Upgrades")) { ProbailityTotalGraph(stat["Max Upgrade"], k, ActualWeighting / initupgradetotal(json, potential)[0], `${BeequipNameFormated(stat)} Upgrades`, BeequipNameFormated(stat), [1], [1]) }
+                let ActualProbability = ActualWeighting / initupgradetotal(json, potential)[+!causticincluded]
+
+                if (button.id.includes("Upgrades")) { ProbailityTotalGraph(stat["Max Upgrade"], k, ActualProbability, `${BeequipNameFormated(stat)} Upgrades`, BeequipNameFormated(stat), [1], [1]) }
                 else if (button.id.includes("Overall")) {
                     var PlotArray = []
-                    for (let i = 0; i < stat["Upgrade Value"].length; i++) {PlotArray.push(BeequipValueBiasChance(stat["Upgrade Value"].length - 1 - i, stat["Upgrade Value"].length - 1, stat["Bias"] ?? 1, potential))}
-                    ProbailityTotalGraph(stat["Max Upgrade"], k, ActualWeighting / initupgradetotal(json, potential)[0], `${BeequipNameFormated(stat)} Overall`, BeequipNameFormated(stat), PlotArray, stat["Upgrade Value"])
+                    for (let i = 0; i < stat["Upgrade Value"].length; i++) { PlotArray.push(BeequipValueBiasChance(stat["Upgrade Value"].length - 1 - i, stat["Upgrade Value"].length - 1, stat["Bias"] ?? 1, potential)) }
+                    ProbailityTotalGraph(stat["Max Upgrade"], k, ActualProbability, `${BeequipNameFormated(stat)} Overall`, BeequipNameFormated(stat) + " Overall", PlotArray, stat["Upgrade Value"])
                 } else {
                     const i = Number(button.id.match(/(\d+)\s*$/)[1]) - 1
-                    ProbailityTotalGraph(stat["Max Upgrade"], k, ActualWeighting / initupgradetotal(json, potential)[0] * BeequipValueBiasChance(stat["Upgrade Value"].length - 1 - i, stat["Upgrade Value"].length - 1, stat["Bias"] ?? 1, potential), `${BeequipNameFormated(stat)} ${i + 1}`, BeequipNameFormated(stat) + " " + stat["Upgrade Value"][i], [1], [stat["Upgrade Value"][i]])
+                    ProbailityTotalGraph(stat["Max Upgrade"], k, ActualProbability * BeequipValueBiasChance(stat["Upgrade Value"].length - 1 - i, stat["Upgrade Value"].length - 1, stat["Bias"] ?? 1, potential), `${BeequipNameFormated(stat)} ${i + 1}`, BeequipNameFormated(stat) + " " + stat["Upgrade Value"][i], [1], [stat["Upgrade Value"][i]])
                 }
             }
 
